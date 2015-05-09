@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +24,35 @@ public class Reader
     private int readerID;
     private int readerGroup;
     private int numberOfBooks;
-    private Book borrowedBooks[]=new Book[4];
     
+    //Cannot use since the object dies after ending the application
+    //private Book borrowedBooks[]=new Book[4];
+    
+    public void PrintReader()
+    {
+            if(readerID>0)
+            {
+                System.out.println(readerID+" "+readerCNP+" "+readerName+" "+readerGroup);
+            }
+            
+            else
+            {
+                System.out.println("This reader doesnt exist book!");
+                
+            }
+           
+        
+        
+        
+        
+        //De finisat!!!
+    }
+    
+    
+    private Reader()
+    {
+        //Internal use
+    }
     
     //Create new reader
     public Reader(int newID,String newCNP,String newName,int newGroup) throws SQLException
@@ -33,10 +62,8 @@ public class Reader
         readerCNP=newCNP;
         readerGroup=newGroup;
         numberOfBooks=0;
-        for(int i=1;i<4;i++)
-        {
-            borrowedBooks[i]=null;
-        }
+        
+        
         
         
         Connection connection=DB_Connection.InitializeConnection();
@@ -53,7 +80,9 @@ public class Reader
         }
         catch(Exception err)
         {
-            System.out.println(err);
+            System.out.println("This reader already exist !");
+            //Reader already exist !
+            //System.out.println(err);
         }
         
         
@@ -119,6 +148,94 @@ public class Reader
         
     }
     
+    
+    
+      public static Reader ExtractReaderDatas(int readerID) throws SQLException
+    {
+        Reader extractedReader=new Reader();
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        
+        
+        
+        try
+        {
+        String querry;
+        ResultSet resultSet;
+        querry="SELECT * FROM readers WHERE ReaderID = "+readerID;
+        resultSet=statement.executeQuery(querry);    
+                    
+            
+            
+            while(resultSet.next())
+            {
+                    
+            
+                    int extractedReaderID=resultSet.getInt("ReaderID");
+                    String extractedReaderCNP=resultSet.getString("ReaderCNP");
+                    String extractedReaderName=resultSet.getString("ReaderName");
+                    int extractedReaderGroup=resultSet.getInt("ReaderGroup");
+                    extractedReader.SetReaderId(extractedReaderID);
+                    extractedReader.SetReaderCNP(extractedReaderCNP);
+                    extractedReader.SetReaderName(extractedReaderName);
+                    extractedReader.SetReaderGroup(extractedReaderGroup);
+                    
+                   
+                    
+                    return extractedReader;
+                    //other exception for this
+                  
+                
+            }
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error : "+ex);
+        }
+        
+            
+            
+               
+                return extractedReader;
+    }
+    
+    
+    //Unfinished
+    public static void BorrowBook(int readerID,int bookID)
+    {
+        try 
+        {
+            Reader theReader=Reader.ExtractReaderDatas(readerID);
+            Book theBook=Book.ExtractBookDatas(bookID);
+        } 
+        catch (SQLException ex)
+        {
+            //Stupid SQL exception:-??
+            Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Continue by update book with update method
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     //Get/Set
+    
+    
     //Get/Set readerID
     public void SetReaderId(int newID)
     {
@@ -128,7 +245,6 @@ public class Reader
     {
         return readerID;
     }
-    
     
     
     //Get/Set readerGroup
@@ -144,7 +260,7 @@ public class Reader
     
     
     //Get/Set readerCNP
-        public void SetReaderCNP(String newCNP)
+    public void SetReaderCNP(String newCNP)
     {
         readerCNP=newCNP;
     }
@@ -166,59 +282,21 @@ public class Reader
         return readerName;
     }
     
-    //Get readers books
-    public Book[] GetBooks()
+    public void SetReaderNumberOfBooks(int newNumberOfBooks)
     {
-        return borrowedBooks;
+        numberOfBooks=newNumberOfBooks;
+    }
+    public int GetReaderNumberOfBooks()
+    {
+        return numberOfBooks;
     }
     
     
-    //Borrow/Return a book
-    public void BorrowBook(Book newBook)
-    {
-        if(numberOfBooks<4)
-        {
-            borrowedBooks[numberOfBooks]=newBook;
-            numberOfBooks++;
-            
-        }
-        else
-        {
-            
-            //You have exceed the maximum number of borrowed books
-        }
-            
-    }
-
-    public void ReturnBook(Book newBook)
-    {
-        boolean check=false;
-        for(int i=1;i<=4;i++)
-        {
-            if(newBook.equals(borrowedBooks[i]))
-            {
-                check=true;
-                
-                while(borrowedBooks[i+1]!=null)
-                {
-                    borrowedBooks[i]=borrowedBooks[i+1];
-                }
-                borrowedBooks[i]=null;
-                if(check==true)
-                {
-                    numberOfBooks--;
-                }
-                else
-                {
-                    //Something is wrong,this guy shouldnt has this book
-                }
-                
-                break;
-            }
-           
-        }
-            
-    }
+  
+    
+    
+    
+    
     
     
 }

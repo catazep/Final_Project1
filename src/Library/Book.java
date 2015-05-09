@@ -7,7 +7,7 @@ package Library;
 
 import DataBase.DB_Connection;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,14 +18,40 @@ import java.sql.Statement;
  */
 public class Book
 {
-    
+    //To update 
     private int bookID;
     private int readerOfBookID;
     private String bookName;
     private String bookAuthor;
     private String bookType;
-    Date borrowDate;
-    Date exceedDate;
+    private Date borrowDate;
+    private Date exceedDate;
+    
+    public void PrintBook()
+    {
+            if(bookID>0)
+            {
+                System.out.println(bookID+" "+readerOfBookID+" "+bookName+" "+bookAuthor+" "+bookType+" "+borrowDate+" "+exceedDate);
+            }
+            
+            else
+            {
+                System.out.println("This book doesnt exist book!");
+                
+            }
+           
+        
+        
+        
+        
+        //De finisat!!!
+    }
+    
+    
+    private Book()
+    {
+        
+    }
     
     
     //Create new book
@@ -49,12 +75,30 @@ public class Book
             statement.executeUpdate(querry);
             //Book has been inserted
         }
-        catch(Exception error)
+        catch(Exception err)
         {
-            System.out.println(error);
+            System.out.println("This book already exist !");
+            //could occur other errors than book exist
+            //System.out.println(err);
         }
         
     }
+    
+    /*private  Book(int newID,int newReaderID,String newName,String newAuthor,String newType,Date newBrrowDate,Date newExceedDate)
+    {
+        bookID=newID;
+        bookName=newName;
+        bookAuthor=newAuthor;
+        bookType=newType;
+        readerOfBookID=newReaderID;
+        borrowDate=newBrrowDate;
+        exceedDate=newExceedDate;
+    }*/
+    
+    //For internal use
+    //Maybe emty constructor is better
+    
+   
     
     //Delete book by bookID
     public static void DeletBook(int bookID) throws SQLException
@@ -72,11 +116,12 @@ public class Book
             {
                 querry = "DELETE FROM `library`.`books` WHERE `books`.`bookID` = "+bookID+";";
                 statement.executeUpdate(querry);
-            //Reader has been created
+                System.out.println("The book has been removed !");
+            
             } 
             else
             {
-                System.out.println("This book doesnt exist !");
+                System.out.println("This book doesn`t exist !");
             }
         }
         catch(Exception err)
@@ -86,17 +131,323 @@ public class Book
         
     }
     
+    public static Book  ExtractBookDatas(int bookID) throws SQLException
+    {
+        Book extractedBook=new Book();
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        
+        
+        
+        try
+        {
+        String querry;
+        ResultSet resultSet;
+        querry="SELECT * FROM books WHERE bookID = "+bookID;
+        resultSet=statement.executeQuery(querry);    
+                    
+            
+            
+            while(resultSet.next())
+            {
+                    
+            
+                    int extractedBookID= resultSet.getInt("bookID");
+                    int extractedReaderOfBookID = resultSet.getInt("FK_ReaderID");
+                    String extractedBookName=resultSet.getString("BookName");
+                    String extractedBookAuthor = resultSet.getString("BookAuthor");
+                    String extractedBookType=resultSet.getString("BookType");
+                    Date extractedBorrowDate = resultSet.getDate("BorrowDate");
+                    Date extractedExceedDate=resultSet.getDate("ExceedDate");
+                    extractedBook.SetBookId(extractedBookID);
+                    extractedBook.SetReaderOfBookID(extractedReaderOfBookID);
+                    extractedBook.SetBookName(extractedBookName);
+                    extractedBook.SetBookAuthor(extractedBookAuthor);
+                    extractedBook.SetBookType(extractedBookType);
+                    extractedBook.SetBorrowDate(extractedBorrowDate);
+                    extractedBook.SetExceedDate(extractedExceedDate);
+                    
+                    return extractedBook;
+                    //other exception for this
+                  
+                
+            }
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error : "+ex);
+        }
+        
+            
+            
+               
+                return extractedBook;
+    }
     
     
+    
+    
+    //Update methods (finding by book ID)
+    
+    //update bookId 
+    public static void UpdateBookID(int bookID,int newBookID) throws SQLException
+    {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        
+        try
+        {
+            
+            querry="SELECT BookID,FK_ReaderID FROM books where BookID="+bookID;
+            resultSet=statement.executeQuery(querry);
+            
+            int readerOfTheBookID=0;
+            int theBookID=0;
+            
+            if(resultSet.next())
+            {
+                theBookID=resultSet.getInt("BookID");
+                readerOfTheBookID=resultSet.getInt("FK_ReaderID");
+                
+            }
+            
+            
+            if(readerOfTheBookID==0&&theBookID!=0)
+            {
+                    
+                    querry="UPDATE `library`.`books` SET `BookID` = "+newBookID+" WHERE `books`.`BookID` ="+bookID+" ;";
+                    statement.executeUpdate(querry);
+                    System.out.println("BookID has been changed !");
+                    
+                
+            }
+            else
+            {
+                
+                if(theBookID==0)
+                {
+                    System.out.println("This ID of book is invalid !");
+                }
+                else if(readerOfTheBookID!=0)
+                {
+                    System.out.println("Unable to update book ID while it is lent !");
+                    System.out.println("The book is lent to reader with ID = "+readerOfTheBookID);
+                }
+                    
+                    
+                
+            }
+            
+                
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+            
+        }
+        
+        
+    }
+    
+    
+    public static void UpdateBookName(int bookID,String newBookName) throws SQLException
+    {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        
+        try
+        {
+            
+            querry="SELECT BookID FROM books where BookID="+bookID;
+            resultSet=statement.executeQuery(querry);
+            
+            
+            int theBookID=0;
+            
+            if(resultSet.next())
+            {
+                theBookID=resultSet.getInt("BookID");
+                
+                
+            }
+            
+            if(theBookID!=0)
+            {
+                    
+                    querry="UPDATE `library`.`books` SET `BookName` = '"+newBookName+"' WHERE `books`.`BookID` = "+bookID+";";
+                    statement.executeUpdate(querry);
+                    System.out.println("BookName has been changed !");
+                    
+                
+            }
+            else
+            {
+                
+                if(theBookID==0)
+                {
+                    System.out.println("The book ID has been not found !");
+                }
+                
+                    
+                    
+                
+            }
+            
+                
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+            
+        }
+    }
+    
+    
+    public static void UpdateBookAuthor(int bookID,String newBookAuthor) throws SQLException
+    {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        
+        try
+        {
+            
+            querry="SELECT BookID FROM books where BookID="+bookID;
+            resultSet=statement.executeQuery(querry);
+            
+            
+            int theBookID=0;
+            
+            if(resultSet.next())
+            {
+                theBookID=resultSet.getInt("BookID");
+                
+                
+            }
+            
+            if(theBookID!=0)
+            {
+                    
+                    querry="UPDATE `library`.`books` SET `BookAuthor` = '"+newBookAuthor+"' WHERE `books`.`BookID` = "+bookID+";";
+                    statement.executeUpdate(querry);
+                    System.out.println("BookAuthor has been changed !");
+                    
+                
+            }
+            else
+            {
+                
+                if(theBookID==0)
+                {
+                    System.out.println("The book ID has been not found !");
+                }
+                
+                    
+                    
+                
+            }
+            
+                
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+            
+        }
+    }
+    
+    
+    public static void UpdateBookType(int bookID,String newBookType) throws SQLException
+    {
+       Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        
+        try
+        {
+            
+            querry="SELECT BookID FROM books where BookID="+bookID;
+            resultSet=statement.executeQuery(querry);
+            
+            
+            int theBookID=0;
+            
+            if(resultSet.next())
+            {
+                theBookID=resultSet.getInt("BookID");
+                
+                
+            }
+            
+            if(theBookID!=0)
+            {
+                    
+                    querry="UPDATE `library`.`books` SET `BookType` = '"+newBookType+"' WHERE `books`.`BookID` = "+bookID+";";
+                    statement.executeUpdate(querry);
+                    System.out.println("BookType has been changed !");
+                    
+                
+            }
+            else
+            {
+                
+                if(theBookID==0)
+                {
+                    System.out.println("The book ID has been not found !");
+                }
+                
+                    
+                    
+                
+            }
+            
+                
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+            
+        } 
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Get/Set
     //Get/Set bookID
     public void SetBookId(int setID)
     {
+        //System.out.println(setID);
         bookID=setID;
     }
     public int GetBookID()
     {
         return bookID;
     }
+    
     
     
     
@@ -113,7 +464,7 @@ public class Book
     
     
     //Get/Set BookName
-        public void SetBookName(String newName)
+    public void SetBookName(String newName)
     {
         bookName=newName;
     }
