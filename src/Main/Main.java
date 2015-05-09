@@ -31,7 +31,7 @@ public class Main
         //Book book1=new Book(1,"Test","Test","Test");
         //Book.DeletBook(97);
         
-        //Reader reader1=new Reader(1,"192038430018","Popescu Cristian",150);
+        //Reader reader1=new Reader(1,"292038430018","Test Reader",1);
         //Book book1=new Book(1,"Test","Test","Test");
         
         
@@ -43,10 +43,17 @@ public class Main
         //Book book=Book.ExtractBookDatas(1);
         //book.PrintBook();
         
-        //Book.UpdateBookID(1, 100);
-        //Book.UpdateBookName(100, " Testing Name");
-        //Book.UpdateBookAuthor(100, "Testing Author");
-        //Book.UpdateBookType(100, "Testing Type");
+        //Book.UpdateBookID(100, 1);
+        //Book.UpdateBookName(1, " Testing Name");
+        //Book.UpdateBookAuthor(1, "Testing Author");
+        //Book.UpdateBookType(1, "Testing Type");
+        
+        //Reader.UpdateReaderID(12, 1);
+        //Reader.UpdateReaderCNP(1, "1450428430016");
+        Reader.UpdateReaderName(1, "Testing");
+        //Reader.UpdateReaderGroup(1, 232);
+        
+        
         
     }
 }

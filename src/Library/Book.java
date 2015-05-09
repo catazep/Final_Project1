@@ -55,7 +55,7 @@ public class Book
     
     
     //Create new book
-    public Book(int newID,String newName,String newAuthor,String newType) throws SQLException 
+    public  Book(int newID,String newName,String newAuthor,String newType) throws SQLException 
     {
         bookID=newID;
         bookName=newName;
@@ -73,11 +73,12 @@ public class Book
             String querry="INSERT INTO `library`.`books` (`BookID`, `FK_ReaderID`, `BookName`, `BookAuthor`, `BookType`, `BorrowDate`, `ExceedDate`) "
                     + "VALUES ('"+bookID+"', NULL, '"+bookName+"', '"+bookAuthor+"', '"+bookType+"', NULL, NULL);";
             statement.executeUpdate(querry);
+            System.out.println("The book has been added to the library !");
             //Book has been inserted
         }
         catch(Exception err)
         {
-            System.out.println("This book already exist !");
+            System.out.println("This book already exist !");//Based on duplicate foreign key SQLException
             //could occur other errors than book exist
             //System.out.println(err);
         }
@@ -100,7 +101,9 @@ public class Book
     
    
     
-    //Delete book by bookID
+    //Deletation of books
+    
+    //By ID
     public static void DeletBook(int bookID) throws SQLException
     {
         Connection connection=DB_Connection.InitializeConnection();
@@ -131,6 +134,9 @@ public class Book
         
     }
     
+    
+    
+    //Extracting book datas by ID
     public static Book  ExtractBookDatas(int bookID) throws SQLException
     {
         Book extractedBook=new Book();
@@ -188,9 +194,24 @@ public class Book
     
     
     
-    //Update methods (finding by book ID)
     
-    //update bookId 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Book Update (finding by bookID)
+    
+    //Update bookID 
     public static void UpdateBookID(int bookID,int newBookID) throws SQLException
     {
         Connection connection=DB_Connection.InitializeConnection();
@@ -253,7 +274,7 @@ public class Book
         
     }
     
-    
+    //Update bookName
     public static void UpdateBookName(int bookID,String newBookName) throws SQLException
     {
         Connection connection=DB_Connection.InitializeConnection();
@@ -309,7 +330,7 @@ public class Book
         }
     }
     
-    
+    //Update bookAuthor
     public static void UpdateBookAuthor(int bookID,String newBookAuthor) throws SQLException
     {
         Connection connection=DB_Connection.InitializeConnection();
@@ -365,7 +386,7 @@ public class Book
         }
     }
     
-    
+    //update bookType
     public static void UpdateBookType(int bookID,String newBookType) throws SQLException
     {
        Connection connection=DB_Connection.InitializeConnection();
