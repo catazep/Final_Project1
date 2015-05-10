@@ -102,11 +102,27 @@ public class Book
     {
         Connection connection=DB_Connection.InitializeConnection();
         Statement statement = connection.createStatement();
+        
         try
         {
             String querry;
             ResultSet resultSet;
-            querry="SELECT * FROM books WHERE bookID="+bookID;
+            
+            
+            querry="SELECT FK_ReaderID FROM books WHERE BookID="+bookID;
+            resultSet=statement.executeQuery(querry);
+            int cheker=0;
+            while(resultSet.next())
+            {
+                cheker=resultSet.getInt("FK_ReaderID");
+            }
+            if(cheker!=0)
+            {
+                System.out.println("Unable to remove a borrowed book !");
+            }
+            else
+            {
+                querry="SELECT * FROM books WHERE bookID="+bookID;
             resultSet=statement.executeQuery(querry);
             
             if(resultSet.next())
@@ -120,6 +136,9 @@ public class Book
             {
                 System.out.println("This book doesn`t exist !");
             }
+            }
+               
+            
         }
         catch(Exception err)
         {
@@ -494,8 +513,14 @@ public class Book
     }
     
     
-    
-    
+    //List of late books --------------------TO FINISH-------------------------------------------------
+    //How to SELECT on date difference base
+    public static void ListOfLateBooks() throws SQLException
+    {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement=connection.createStatement();
+        String querry="SELECT FRO";
+    }
     
     
     
