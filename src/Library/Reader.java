@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -160,9 +161,6 @@ public class Reader
     
     
     
-    
-    
-    
     //Reader data extraction
     
       public static Reader ExtractReaderDatas(int readerID) throws SQLException
@@ -170,20 +168,28 @@ public class Reader
         Reader extractedReader=new Reader();
         Connection connection=DB_Connection.InitializeConnection();
         Statement statement = connection.createStatement();
-        
-        
-        
-        try
-        {
         String querry;
         ResultSet resultSet;
-        querry="SELECT * FROM readers WHERE ReaderID = "+readerID;
-        resultSet=statement.executeQuery(querry);    
+        
+        
+        querry="SELECT * FROM readers WHERE ReaderID="+readerID;
+        resultSet=statement.executeQuery(querry); 
+        if(!resultSet.next())
+        {
+            System.out.println("No readerID !");
+        }
+        else
+        {
+            try
+            {
+        
+            querry="SELECT * FROM readers WHERE ReaderID = "+readerID;
+            resultSet=statement.executeQuery(querry);    
                     
             
             
-            while(resultSet.next())
-            {
+                while(resultSet.next())
+                {
                     
             
                     int extractedReaderID=resultSet.getInt("ReaderID");
@@ -201,29 +207,146 @@ public class Reader
                     //other exception for this
                   
                 
-            }
+                }
             
-        }
-        catch(Exception ex)
-        {
+            }
+            catch(Exception ex)
+            {
             System.out.println("Error : "+ex);
-        }
+            
+            
+            }
         
             
-            
+        }
+        
                
                 return extractedReader;
     }
     
     
-    //Unfinished-------------TO FINISH AFTER ALL UPDATES ARE DONE-----------------------------------
-    public static void BorrowBook(int readerID,int bookID)
+    //Borrow book
+    public static void BorrowBook(int readerID,int bookID) throws SQLException
     {
        
+        
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry="SELECT BookID FROM books WHERE FK_ReaderID ="+readerID;
+        ResultSet resultSet=statement.executeQuery(querry);
+        int countBooksOfReader=1;
+        
+        while(resultSet.next())
+        {
+            countBooksOfReader++;
+        }
+            
+        
+        if(countBooksOfReader>4)
+        {
+            System.out.println("The reader has exceeded the maximum number of books !");
+        }
+        else
+        {
+            
+            Statement statementAux = connection.createStatement();
+            
+            
+            
+            querry="SELECT * FROM readers WHERE ReaderID="+readerID;
+            resultSet=statement.executeQuery(querry);
+            
+            String querryAux="SELECT * FROM books WHERE BookID="+bookID;
+            ResultSet resultSetAux=statementAux.executeQuery(querryAux);
+            
+            
+            if(!resultSet.next())
+            {
+                System.out.println("The reader doesn't existt !");
+            }
+            else if(!resultSetAux.next())
+            {
+                
+                System.out.println("The book doesn't existt !");
+            }
+            else
+            {
+                querry="SELECT BookID FROM books WHERE FK_ReaderID="+readerID;
+                resultSet=statement.executeQuery(querry);
+                int check;
+                boolean confirmer=true;
+                
+                while(resultSet.next())
+                {
+                    check=resultSet.getInt("BookID");
+                    if(check==bookID)
+                    {
+                        System.out.println("This reader already has this book !");
+                        confirmer =false;
+                        break;
+                    }
+                       
+                }
+                
+                
+                
+                if(confirmer==true)
+                {
+                    querry="UPDATE `library`.`books` SET `FK_ReaderID` = "+readerID+", `BorrowDate` = sysdate(),"
+                    + " `ExceedDate` = date_add(sysdate(), INTERVAL 21 DAY) WHERE `books`.`BookID` ="+bookID;
+            
+                    statement.executeUpdate(querry);
+                    System.out.println("Borrow has suceeded !");
+                }
+            
+            
+            }
+            
+            
+        }
+        
     }
     
-    
-    
+    //Return book
+    public static void ReturnBook(int bookID) throws SQLException
+    {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        
+        String querry;
+        
+        
+        
+        
+        
+        Book book=Book.ExtractBookDatas(bookID);
+        
+        
+        try
+        {
+            if((book.GetExceedDate().getTime()-book.GetBorrowDate().getTime())/60/60/24/1000>21)
+        {   
+            System.out.println("The term has exceeded !");
+        }
+        }
+        catch(Exception ex)
+        {
+            System.out.println("The book has no dates of borrowing and exceeding, but the DataBase will refresh it to null anyway !!!");
+            
+        }
+        
+        try
+        {
+            querry="UPDATE `library`.`books` SET `FK_ReaderID` = NULL, `BorrowDate` = NULL, `ExceedDate` = NULL WHERE `books`.`BookID` = "+bookID;
+            statement.executeUpdate(querry);
+        }
+        catch(Exception ex)
+        {
+        System.out.println(ex+"Error !!!");
+        }
+        System.out.println("The return has been finished !");
+        
+    }
     
     
     
@@ -272,7 +395,7 @@ public class Reader
                 }
                 else
                 {
-                System.out.println("Unable to cahnage the readerID while he has at leat one book !");
+                System.out.println("Unable to cahnage the readerID while he/she has at leat one book !");
                 }
             }
                     
@@ -361,7 +484,7 @@ public class Reader
         }
         catch(Exception ex)
         {
-            System.out.println(ex);
+            System.out.println("Other errors");
             
         }
     }
@@ -409,28 +532,236 @@ public class Reader
     
     
     
+    
+    
+    
+    
+    
     //Reader Update (Find by readerCNP)
     
-    public static void UpdateReaderID(String readerCNP,int newReaderId)
+    public static void UpdateReaderID(String readerCNP,int newReaderID) throws SQLException
     {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        int theReaderID;
+        
+        
+        
+        try
+        {
+            
+            querry="SELECT ReaderID,ReaderCNP FROM readers where ReaderCNP="+readerCNP;
+            resultSet=statement.executeQuery(querry);
+            
+            if(!resultSet.next())
+            {
+                System.out.println("This readerCNP doesn't exist !");
+            }
+             else  
+            {
+                    theReaderID=resultSet.getInt("readerID");
+                    querry="SELECT BookID FROM books where FK_ReaderID="+theReaderID;
+                    resultSet=statement.executeQuery(querry);
+                    
+                    if(!resultSet.next())
+                    {
+                        querry="UPDATE `library`.`readers` SET `ReaderID` = "+newReaderID+" WHERE `readers`.`ReaderCNP` ="+readerCNP+" ;";
+                        statement.executeUpdate(querry);
+                        System.out.println("ReaderID has been changed !");
+                    }
+                    else
+                    {
+                        System.out.println("Unable to cahnage the readerID while he/she has at leat one book !");
+                    }
+            
+                
+            }
+                    
+          
+        }
+        catch(Exception ex)
+        {
+            System.out.println("This ID is already used !");
+            
+        }
+    }
+    
+    public static void UpdateReaderCNP(String readerCNP,String newReaderCNP) throws SQLException
+    {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        
+        
+        
+        try
+        {
+            
+            querry="SELECT ReaderCNP FROM readers where ReaderCNP="+readerCNP;
+            resultSet=statement.executeQuery(querry);
+            
+            if(!resultSet.next())
+            {
+                System.out.println("This readerCNP doesn't exist !");
+            }
+             else  
+            {
+                
+                    
+                    querry="UPDATE `library`.`readers` SET `ReaderCNP` = "+newReaderCNP+" WHERE `readers`.`ReaderCNP` ="+readerCNP+" ;";
+                    statement.executeUpdate(querry);
+                    System.out.println("ReaderCNP has been changed !");
+                    
+                
+            }
+                    
+          
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println("This CNP is already used !");
+            
+        }
+    }
+    
+    public static void UpdateReaderName(String readerCNP,String newReaderName) throws SQLException
+    {
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        
+        
+        
+        try
+        {
+            
+            querry="SELECT ReaderCNP FROM readers where ReaderCNP="+readerCNP;
+            resultSet=statement.executeQuery(querry);
+            
+            if(!resultSet.next())
+            {
+                System.out.println("This readerCNP doesn't exist !");
+            }
+             else  
+            {
+                
+                    
+                    querry="UPDATE `library`.`readers` SET `ReaderName` = "+newReaderName+" WHERE `readers`.`ReaderCNP` ="+readerCNP+" ;";
+                    statement.executeUpdate(querry);
+                    System.out.println("ReaderName has been changed !");
+                    
+                
+            }
+                    
+          
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Other errors !");
+            
+        }
+    }
+    
+    
+    public static void UpdateReaderGroup(String readerCNP,int newReaderGroup) throws SQLException
+    {
+       Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        String querry;
+        ResultSet resultSet;
+        
+        
+        
+        try
+        {
+            
+            querry="SELECT ReaderCNP FROM readers where ReaderCNP="+readerCNP;
+            resultSet=statement.executeQuery(querry);
+            
+            if(!resultSet.next())
+            {
+                System.out.println("This readerCNP doesn't exist !");
+            }
+             else  
+            {
+                
+                    
+                    querry="UPDATE `library`.`readers` SET `ReaderGroup` = "+newReaderGroup+" WHERE `readers`.`ReaderCNP` ="+readerCNP+" ;";
+                    statement.executeUpdate(querry);
+                    System.out.println("ReaderCNP has been changed !");
+                    
+                
+            }
+                    
+          
+            
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Other errors !");
+            
+        } 
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Seacrh reader
+    
+    //By readerID
+    public static ResultSet SearchReaderByID(int readerID) throws SQLException
+    {
+        String querry="SELECT * FROM readers WHERE readerID = "+readerID+" ;";
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet=statement.executeQuery(querry);
+        
+            return resultSet;
         
     }
     
-    public static void UpdateReaderCNP(String readerCNP,String newReaderCNP)
+    //By bookName
+    public static ResultSet SearchReaderByCNP(String readerCNP) throws SQLException
     {
+        String querry="SELECT * FROM readers WHERE readerCNP = \""+readerCNP+"\" ;";
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet=statement.executeQuery(querry);
+        
+            return resultSet;
+       
+    }
+    
+    
+    
+    //By bookAuthor
+    public static ResultSet SearchReaderByName(String readerName) throws SQLException
+    {
+        String querry="SELECT * FROM readers WHERE readerName = \""+readerName+"\" ;";
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet=statement.executeQuery(querry);
+        
+        
+            return resultSet;
         
     }
     
-    public static void UpdateReaderName(String readerCNP,String newReaderName)
-    {
-        
-    }
     
     
-    public static void UpdateReaderGroup(String readerCNP,int newReaderGroup)
-    {
-        
-    }
+    
+    
     
     
     
@@ -495,12 +826,6 @@ public class Reader
     {
         return numberOfBooks;
     }
-    
-    
-  
-    
-    
-    
     
     
     

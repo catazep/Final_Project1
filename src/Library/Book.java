@@ -85,21 +85,15 @@ public class Book
         
     }
     
-    /*private  Book(int newID,int newReaderID,String newName,String newAuthor,String newType,Date newBrrowDate,Date newExceedDate)
-    {
-        bookID=newID;
-        bookName=newName;
-        bookAuthor=newAuthor;
-        bookType=newType;
-        readerOfBookID=newReaderID;
-        borrowDate=newBrrowDate;
-        exceedDate=newExceedDate;
-    }*/
     
-    //For internal use
-    //Maybe emty constructor is better
     
    
+    
+    
+    
+    
+    
+    
     
     //Deletation of books
     
@@ -142,13 +136,20 @@ public class Book
         Book extractedBook=new Book();
         Connection connection=DB_Connection.InitializeConnection();
         Statement statement = connection.createStatement();
-        
-        
-        
-        try
-        {
         String querry;
         ResultSet resultSet;
+        
+        querry="SELECT * FROM books WHERE bookID="+bookID;
+        resultSet=statement.executeQuery(querry); 
+        if(!resultSet.next())
+        {
+            System.out.println("No bookID !");
+        }
+        else
+        {
+            try
+        {
+        
         querry="SELECT * FROM books WHERE bookID = "+bookID;
         resultSet=statement.executeQuery(querry);    
                     
@@ -158,13 +159,17 @@ public class Book
             {
                     
             
-                    int extractedBookID= resultSet.getInt("bookID");
+                    int extractedBookID = resultSet.getInt("bookID");
                     int extractedReaderOfBookID = resultSet.getInt("FK_ReaderID");
-                    String extractedBookName=resultSet.getString("BookName");
+                    String extractedBookName = resultSet.getString("BookName");
                     String extractedBookAuthor = resultSet.getString("BookAuthor");
-                    String extractedBookType=resultSet.getString("BookType");
+                    String extractedBookType = resultSet.getString("BookType");
                     Date extractedBorrowDate = resultSet.getDate("BorrowDate");
-                    Date extractedExceedDate=resultSet.getDate("ExceedDate");
+                    Date extractedExceedDate = resultSet.getDate("ExceedDate");
+                    
+                    //System.out.println(extractedBookID+" "+extractedReaderOfBookID+" "+extractedBookName+" "+extractedBookAuthor+
+                            //" "+extractedBookType+" "+extractedBorrowDate+" "+extractedExceedDate);
+                    
                     extractedBook.SetBookId(extractedBookID);
                     extractedBook.SetReaderOfBookID(extractedReaderOfBookID);
                     extractedBook.SetBookName(extractedBookName);
@@ -184,16 +189,14 @@ public class Book
         {
             System.out.println("Error : "+ex);
         }
+        }
+        
         
             
             
                
                 return extractedBook;
     }
-    
-    
-    
-    
     
     
     
@@ -447,6 +450,48 @@ public class Book
     
     
     
+    //Searching books
+    
+    //By bookID
+       public static ResultSet SearchBookByID(int bookID) throws SQLException 
+    {
+        String querry="SELECT * FROM books WHERE bookID = "+bookID+" ;";
+        
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet=statement.executeQuery(querry);
+        
+        return resultSet;
+            
+        
+        
+    }
+       
+    //By bookName
+    public static ResultSet SearchBookByName(String bookName) throws SQLException
+    {
+        String querry="SELECT * FROM books WHERE bookName =\""+bookName+"\" ;";
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet=statement.executeQuery(querry);
+        return resultSet;
+        
+        
+        
+        
+    }
+    
+    //By bookAuthor
+    public static ResultSet SearchBookByAuthor(String bookAuthor) throws SQLException
+    {
+        String querry="SELECT * FROM `library`.`books` WHERE bookAuthor = \""+bookAuthor+"\" ;";
+        Connection connection=DB_Connection.InitializeConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet=statement.executeQuery(querry);
+       
+            return resultSet;
+        
+    }
     
     
     
@@ -537,10 +582,10 @@ public class Book
     //Get/Set exceed date
     public void SetExceedDate(Date newDate)
     {
-        borrowDate=newDate;
+        exceedDate=newDate;
     }
         
-    public Date GetExceedwDate()
+    public Date GetExceedDate()
     {
         return exceedDate;
     }
