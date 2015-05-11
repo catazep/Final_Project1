@@ -522,7 +522,20 @@ public class Book
         String querry="SELECT * FROM `books` WHERE DATEDIFF(ExceedDate,BorrowDate) > 21";
         //Optional varable
         
+        
+        
         ResultSet resultSet = statement.executeQuery(querry);
+        
+        /*
+        while(resultSet.next())
+        {
+            System.out.print(resultSet.getInt("BookID")+"               ");
+            System.out.print(resultSet.getString("BookName")+"               ");
+            System.out.print(resultSet.getString("BookAuthor")+"               ");
+            System.out.print(resultSet.getString("BookType")+"               ");
+            System.out.println();
+        }
+                */
         //System.out.println(resultSet);
         return resultSet;
     }
