@@ -513,13 +513,18 @@ public class Book
     }
     
     
-    //List of late books --------------------TO FINISH-------------------------------------------------
-    //How to SELECT on date difference base
-    public static void ListOfLateBooks() throws SQLException
+    
+    //Return a ResultSet of book which have exceeded the limit time
+    public static ResultSet ListOfLateBooks() throws SQLException
     {
         Connection connection=DB_Connection.InitializeConnection();
         Statement statement=connection.createStatement();
-        String querry="SELECT FRO";
+        String querry="SELECT * FROM `books` WHERE DATEDIFF(ExceedDate,BorrowDate) > 21";
+        //Optional varable
+        
+        ResultSet resultSet = statement.executeQuery(querry);
+        //System.out.println(resultSet);
+        return resultSet;
     }
     
     
