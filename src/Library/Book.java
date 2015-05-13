@@ -519,7 +519,7 @@ public class Book
     {
         Connection connection=DB_Connection.InitializeConnection();
         Statement statement=connection.createStatement();
-        String querry="SELECT * FROM `books` WHERE DATEDIFF(ExceedDate,BorrowDate) > 21";
+        String querry="SELECT * FROM `books` WHERE DATEDIFF(SYSDATE(),BorrowDate) > 0";
         //Optional varable
         
         
