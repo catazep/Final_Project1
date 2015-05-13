@@ -1,10 +1,13 @@
-package Interface;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Interface;
+import DataBase.DB_Connection;
+import java.sql.Connection;
+import Library.*;
+import static javax.swing.text.StyleConstants.Bold;
 
 /**
  *
@@ -13,12 +16,15 @@ package Interface;
 public class HomePage extends javax.swing.JFrame {
 
     /**
-     * Creates new form HomePage
+     * Creates new form Test
      */
     public HomePage() {
         initComponents();
+        
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,57 +34,79 @@ public class HomePage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        exitButton = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        exitButton.setText("Exit");
-        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exitButtonMouseClicked(evt);
-            }
-        });
-        exitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitButtonActionPerformed(evt);
-            }
-        });
-
-        jMenu1.setText("File");
+        jPanel1 = new javax.swing.JPanel();
+        label1 = new java.awt.Label();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        Options = new javax.swing.JMenu();
+        Book = new javax.swing.JMenu();
+        Add = new javax.swing.JMenuItem();
+        Remove = new javax.swing.JMenuItem();
+        View = new javax.swing.JMenuItem();
+        Quit = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("jMenuItem2");
-        jMenu1.add(jMenuItem2);
 
-        jMenu4.setText("jMenu4");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(650, 300));
+        setPreferredSize(new java.awt.Dimension(580, 400));
+        setResizable(false);
 
-        jMenuItem3.setText("jMenuItem3");
-        jMenu4.add(jMenuItem3);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(512, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(318, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
-        jMenuItem4.setText("jMenuItem4");
-        jMenu4.add(jMenuItem4);
+        Options.setText("Options");
 
-        jMenu1.add(jMenu4);
+        Book.setText("Book");
 
-        jMenuBar1.add(jMenu1);
+        Add.setText("Add");
+        Add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddActionPerformed(evt);
+            }
+        });
+        Book.add(Add);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        Remove.setText("Remove");
+        Remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveActionPerformed(evt);
+            }
+        });
+        Book.add(Remove);
 
-        jMenu3.setText("jMenu3");
-        jMenuBar1.add(jMenu3);
+        View.setText("View");
+        Book.add(View);
+
+        Options.add(Book);
+
+        Quit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        Quit.setText("Quit");
+        Quit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                QuitActionPerformed(evt);
+            }
+        });
+        Options.add(Quit);
+
+        jMenuBar1.add(Options);
 
         setJMenuBar(jMenuBar1);
 
@@ -86,30 +114,48 @@ public class HomePage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(566, Short.MAX_VALUE)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(340, Short.MAX_VALUE)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_exitButtonActionPerformed
+    private void RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveActionPerformed
+        Connection connection = DB_Connection.InitializeConnection();
+        label1.setSize(300,20);
+        label1.setFont(new java.awt.Font("Yu Gothic", 1, 14));
+        
+        if(connection != null)
+        {
+            
+            label1.setText("Connection established !");
+        }
+        else
+        {
+            label1.setText("Connection not established !");
+        }
+    }//GEN-LAST:event_RemoveActionPerformed
 
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        System.exit(0);        
-    }//GEN-LAST:event_exitButtonMouseClicked
+    
+    
+    private void QuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitActionPerformed
+        Sure sure = new Sure();
+        sure.setVisible(true);
+        
+    }//GEN-LAST:event_QuitActionPerformed
 
+    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
+       
+        
+    }//GEN-LAST:event_AddActionPerformed
+
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -136,6 +182,7 @@ public class HomePage extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -143,18 +190,23 @@ public class HomePage extends javax.swing.JFrame {
                 new HomePage().setVisible(true);
             }
         });
+        
+        
+      
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton exitButton;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuItem Add;
+    private javax.swing.JMenu Book;
+    private javax.swing.JMenu Options;
+    private javax.swing.JMenuItem Quit;
+    private javax.swing.JMenuItem Remove;
+    private javax.swing.JMenuItem View;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
