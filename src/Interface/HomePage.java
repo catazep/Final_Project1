@@ -9,6 +9,7 @@ package Interface;
 import DataBase.DB_Connection;
 import java.sql.Connection;
 import Library.*;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import static javax.swing.text.StyleConstants.Bold;
@@ -16,6 +17,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -40,13 +42,14 @@ public class HomePage extends javax.swing.JFrame {
         
         this.setTitle("Home page");
         
-        //update book panel
+        // <editor-fold defaultstate="collapsed" desc="update book panel">
+        
         UpdateBook.setEnabled(false);
         NewBookID.setEnabled(false);
         NewBookName.setEnabled(false);
         NewBookAuthor.setEnabled(false);
         NewBookType.setEnabled(false);
-        
+        // </editor-fold>  
         
     }
 
@@ -88,6 +91,8 @@ public class HomePage extends javax.swing.JFrame {
         CheckBookID = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPane2 = new javax.swing.JTextPane();
         BookRemovePanel = new javax.swing.JPanel();
         label12 = new java.awt.Label();
         DeletedBookID = new javax.swing.JTextField();
@@ -221,61 +226,73 @@ public class HomePage extends javax.swing.JFrame {
 
         jTextPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextPane1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jTextPane1.setText("Insert the Book ID that you want to change and than check the box and insert values sere you wat to change them !");
+        jTextPane1.setText("Complete thisfield first !");
         jTextPane1.setDisabledTextColor(new java.awt.Color(0, 51, 51));
         jTextPane1.setEnabled(false);
         jTextPane1.setOpaque(false);
         jScrollPane2.setViewportView(jTextPane1);
+
+        jTextPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextPane2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTextPane2.setText("Complete only the fields to be changed !");
+        jTextPane2.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        jTextPane2.setEnabled(false);
+        jTextPane2.setOpaque(false);
+        jScrollPane3.setViewportView(jTextPane2);
 
         javax.swing.GroupLayout BookUpdatePanelLayout = new javax.swing.GroupLayout(BookUpdatePanel);
         BookUpdatePanel.setLayout(BookUpdatePanelLayout);
         BookUpdatePanelLayout.setHorizontalGroup(
             BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookUpdatePanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BookUpdatePanelLayout.createSequentialGroup()
-                        .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(UpdatedBookID)
-                            .addGroup(BookUpdatePanelLayout.createSequentialGroup()
-                                .addGap(0, 17, Short.MAX_VALUE)
-                                .addComponent(label11, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CheckBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(24, 24, 24)
                 .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookUpdatePanelLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(label8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(247, 247, 247)
+                        .addComponent(label8, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UpdateBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(28, 28, 28))
+                        .addComponent(UpdateBook, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addGap(40, 40, 40))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookUpdatePanelLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(BookUpdatePanelLayout.createSequentialGroup()
+                                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(BookUpdatePanelLayout.createSequentialGroup()
+                                        .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(UpdatedBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label11, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CheckBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(NewBookID, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(NewBookType, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(NewBookAuthor, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NewBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                            .addComponent(NewBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(84, 84, 84))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookUpdatePanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103))))
         );
         BookUpdatePanelLayout.setVerticalGroup(
             BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BookUpdatePanelLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NewBookID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BookUpdatePanelLayout.createSequentialGroup()
-                        .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(NewBookID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(NewBookName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -585,7 +602,8 @@ public class HomePage extends javax.swing.JFrame {
             if(bookID.equals("")||bookName.equals("")||bookAuthor.equals("")||bookType.equals(""))
             {
                 
-                JOptionPane.showMessageDialog (null, "Please complete all fields !", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog (null, "Please complete all fields !"
+                        , "Warning", JOptionPane.WARNING_MESSAGE);
 
                 
             }
@@ -595,11 +613,31 @@ public class HomePage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog (null, "Id of the book must be and integer value !", "Warning", JOptionPane.WARNING_MESSAGE);
 
                 }
+            else if(Integer.parseInt(bookID)<1)
+            {
+                JOptionPane.showMessageDialog (null, 
+                    "Boo ID must be highere than 0 !", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
             else 
             {
                 try
                 {
                     Library.Book book = new Book(iBookID,bookName,bookAuthor,bookType);
+                    /*int viewX=view.getX();
+                    int viewY=view.getY();
+                    view.setVisible(false);
+                    view=null;
+                    view=new View();
+                    
+                    view.setLocation(viewX, viewY);
+                    view.setVisible(true);*/
+                    Object[] row = { iBookID, "", bookName, bookAuthor ,bookType ,"", ""};
+                    
+
+                    DefaultTableModel model = (DefaultTableModel) view.jTable1.getModel();
+
+                    model.addRow(row);
+                    
                     
                     
 
@@ -607,7 +645,7 @@ public class HomePage extends javax.swing.JFrame {
                 catch(Exception e)
                 {
                     
-                    JOptionPane.showMessageDialog (null, "A seriosu problem has occur !\n"
+                    JOptionPane.showMessageDialog (null, "A seriosu problem has occured !\n"
                             +"Please contact an admin !", "Warning", JOptionPane.WARNING_MESSAGE);
 
                     
@@ -643,44 +681,92 @@ public class HomePage extends javax.swing.JFrame {
                     }
                     else
                     {
+                        boolean check=true;
+                        try
+                        {
+                            int newBookIDCheck=Integer.parseInt(NewBookID.getText());
+                        }
+                        catch(Exception e)
+                        {
+                            check=false;
+                        }
+                        
+                        
                         String newBookID=NewBookID.getText();
                         String newBookName=NewBookName.getText();
                         String newBookAuthor=NewBookAuthor.getText();
                         String newBookType=NewBookType.getText();
                         
-                       
                             
-                            
-                            
-                            
+                         if(NewBookID.getText().equals(""))
+                         {
                             if(!newBookName.equals(""))
                             {
-                            Library.Book.UpdateBookName(Integer.parseInt(updatedBookID), newBookName);
+                                Library.Book.UpdateBookName(Integer.parseInt(updatedBookID), newBookName);
                             }
-                            if(!newBookName.equals(""))
+                            if(!newBookAuthor.equals(""))
                             {
-                            Library.Book.UpdateBookAuthor(Integer.parseInt(updatedBookID), newBookAuthor);
+                                Library.Book.UpdateBookAuthor(Integer.parseInt(updatedBookID), newBookAuthor);
                             }
-                            if(!newBookName.equals(""))
+                            if(!newBookType.equals(""))
                             {
-                            Library.Book.UpdateBookType(Integer.parseInt(updatedBookID), newBookType);
+                                Library.Book.UpdateBookType(Integer.parseInt(updatedBookID), newBookType);
                             }
+                            JOptionPane.showMessageDialog (null,"   Book has been updated !", "", JOptionPane.INFORMATION_MESSAGE);
+                            view.jTable1.updateUI();
+                         }
+                         else
+                         {
                             
+                                if(Integer.parseInt(newBookID)<1)
+                                {
+                                    JOptionPane.showMessageDialog (null,"The new book ID must be highere than 0 \n ! The book has not been updated !", "Error", JOptionPane.WARNING_MESSAGE);
+                                }
+                                else if(check==false)
+                                {
+                                    JOptionPane.showMessageDialog (null,"Invalid book ID !\n  The book has not been updated !", "Error", JOptionPane.WARNING_MESSAGE);
+                                }
+                                else
+                                {
+                                    Library.Book book=Library.Book.ExtractBookDatas(Integer.parseInt(newBookID));
+                                    if(book.GetBookID()!=0)
+                                    {
+                                        JOptionPane.showMessageDialog (null,"The Id is already used !", "Error", JOptionPane.WARNING_MESSAGE);
+                                    }
+                                    else
+                                    {
+                                        
+                                        if(!newBookName.equals(""))
+                                        {
+                                        Library.Book.UpdateBookName(Integer.parseInt(updatedBookID), newBookName);
+                                        }
+                                        if(!newBookAuthor.equals(""))
+                                        {
+                                        Library.Book.UpdateBookAuthor(Integer.parseInt(updatedBookID), newBookAuthor);
+                                        }
+                                        if(!newBookType.equals(""))
+                                        {
+                                        Library.Book.UpdateBookType(Integer.parseInt(updatedBookID), newBookType);
+                                        }
+                                        if(!newBookID.equals(""))
+                                        {
+                                        Library.Book.UpdateBookID(Integer.parseInt(updatedBookID), Integer.parseInt(newBookID));
+                                        }
+                                        JOptionPane.showMessageDialog (null,"   Book has been updated !", "", JOptionPane.INFORMATION_MESSAGE);
+                                        view.jTable1.updateUI();
+                                    }
+                                }
+                                
+                         }
                             
-                            
-                            
-                            if(!newBookID.equals(""))
-                            {
-                            Library.Book.UpdateBookID(Integer.parseInt(updatedBookID), Integer.parseInt(newBookID));
-                            }
                             
                                 
-                    
                             
                         
-                        
-                        
-                        JOptionPane.showMessageDialog (null,"The book has been updated !", "Error", JOptionPane.INFORMATION_MESSAGE);
+                                
+                            
+                            
+                 
                     }
                     //DO the staff
                     
@@ -703,9 +789,20 @@ public class HomePage extends javax.swing.JFrame {
 
     private void CheckBookIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBookIDActionPerformed
         
-        
-      
-        if(CheckBookID.isSelected()==true && !UpdatedBookID.getText().equals(""))
+        int checkBookID;
+        try
+        {
+            checkBookID = Integer.parseInt(UpdatedBookID.getText());
+
+        }
+        catch (NumberFormatException e)
+        {
+            checkBookID=-100;
+        }
+        System.out.println(checkBookID);
+        if(checkBookID!=-100)
+        {
+            if( CheckBookID.isSelected()==true && !UpdatedBookID.getText().equals("") && Integer.parseInt(UpdatedBookID.getText())>0 )
         {
             
             
@@ -718,7 +815,7 @@ public class HomePage extends javax.swing.JFrame {
             
          
         }
-        else if(UpdatedBookID.getText().equals(""))
+        else if(checkBookID<0||UpdatedBookID.getText().equals("")||Integer.parseInt(UpdatedBookID.getText())<1)
         {
             CheckBookID.setSelected(false);
             UpdatedBookID.setEditable(true);
@@ -728,8 +825,20 @@ public class HomePage extends javax.swing.JFrame {
             NewBookAuthor.setEnabled(false);
             NewBookType.setEnabled(false);
             
-            JOptionPane.showMessageDialog (null, "Complete the BookID field !"
+            
+            if(UpdatedBookID.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog (null, "Complete the BookID field !"
                     , "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+            else if(Integer.parseInt(UpdatedBookID.getText())<1)
+            {
+                
+                JOptionPane.showMessageDialog (null, "Book ID must be highere than 0 !"
+                    , "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+           
+            
             
         }
         else 
@@ -745,6 +854,20 @@ public class HomePage extends javax.swing.JFrame {
             
             
         }
+        }
+        else
+        {
+            CheckBookID.setSelected(false);
+            UpdatedBookID.setEditable(true);
+            UpdateBook.setEnabled(false);
+            NewBookID.setEnabled(false);
+            NewBookName.setEnabled(false);
+            NewBookAuthor.setEnabled(false);
+            NewBookType.setEnabled(false);
+            JOptionPane.showMessageDialog (null, "Invalid book ID !"
+                    , "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        
         
         
         
@@ -753,27 +876,45 @@ public class HomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckBookIDActionPerformed
 
     private void CheckBookID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBookID1ActionPerformed
-            
-        if(CheckBookID1.isSelected()==true)
+        int checkBookID;
+        try
         {
-                 if(DeletedBookID.getText().equals(""))
+            checkBookID=Integer.parseInt(DeletedBookID.getText());
+        }
+        catch (NumberFormatException e)
+        {
+            checkBookID=-100;
+        }
+        
+        
+        
+        if(checkBookID!=-100)
+        {
+            if(CheckBookID1.isSelected()==true && Integer.parseInt(DeletedBookID.getText())>0)
             {
-                CheckBookID1.setSelected(false);
-                JOptionPane.showMessageDialog (null, "Please inert the book ID ! \n "
+                 
+                    DeleteBook.setEnabled(true);
+                    DeletedBookID.setEnabled(false);
+                  
+            }
+            else 
+            {
+                DeleteBook.setEnabled(false);
+                DeletedBookID.setEnabled(true);
+                JOptionPane.showMessageDialog (null, "Book ID must be higher than 0 ! "
                     , "Error", JOptionPane.WARNING_MESSAGE);
                 
             }
-            else
-            {
-                DeleteBook.setEnabled(true);
-                DeletedBookID.setEnabled(false);
-            }   
         }
         else
         {
                 DeleteBook.setEnabled(false);
                 DeletedBookID.setEnabled(true);
+                CheckBookID1.setSelected(false);
+                JOptionPane.showMessageDialog (null, "Invalid Book ID ! \n "
+                    , "Error", JOptionPane.WARNING_MESSAGE);
         }
+        
         
     }//GEN-LAST:event_CheckBookID1ActionPerformed
 
@@ -883,7 +1024,9 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
     private java.awt.Label label1;
     private java.awt.Label label10;
     private java.awt.Label label11;
