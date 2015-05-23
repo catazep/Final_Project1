@@ -39,6 +39,10 @@ public class HomePage extends javax.swing.JFrame {
         BookUpdatePanel.setVisible(false);   
         BookAddPanel.setVisible(false);
         BookRemovePanel.setVisible(false);
+        ReaderAddPanel.setVisible(false);
+        ReaderUpdatePanel.setVisible(false);
+        ReaderRemovePanel.setVisible(false);
+        
         
         this.setTitle("Home page");
         
@@ -102,6 +106,9 @@ public class HomePage extends javax.swing.JFrame {
         HomePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
+        ReaderAddPanel = new javax.swing.JPanel();
+        ReaderUpdatePanel = new javax.swing.JPanel();
+        ReaderRemovePanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Pages = new javax.swing.JMenu();
         Home = new javax.swing.JMenuItem();
@@ -151,7 +158,7 @@ public class HomePage extends javax.swing.JFrame {
                         .addGap(205, 205, 205)
                         .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AddBook, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                        .addComponent(AddBook, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BookAddPanelLayout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addGroup(BookAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -248,38 +255,39 @@ public class HomePage extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookUpdatePanelLayout.createSequentialGroup()
-                        .addGap(247, 247, 247)
-                        .addComponent(label8, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UpdateBook, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                        .addGap(40, 40, 40))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookUpdatePanelLayout.createSequentialGroup()
                         .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(BookUpdatePanelLayout.createSequentialGroup()
-                                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(247, 247, 247)
+                                .addComponent(label8, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(UpdateBook, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                            .addGroup(BookUpdatePanelLayout.createSequentialGroup()
+                                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(label9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(BookUpdatePanelLayout.createSequentialGroup()
                                         .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(UpdatedBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(label11, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(CheckBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(NewBookID, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NewBookType, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NewBookAuthor, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NewBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(84, 84, 84))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookUpdatePanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103))))
+                                            .addGroup(BookUpdatePanelLayout.createSequentialGroup()
+                                                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(UpdatedBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(label11, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(CheckBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(label6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(NewBookID, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(NewBookType, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(NewBookAuthor, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(NewBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(84, 84, 84))))
         );
         BookUpdatePanelLayout.setVerticalGroup(
             BookUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +357,7 @@ public class HomePage extends javax.swing.JFrame {
             BookRemovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BookRemovePanelLayout.createSequentialGroup()
                 .addGap(158, 158, 158)
-                .addComponent(label13, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addComponent(label13, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DeleteBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(159, 159, 159))
@@ -396,7 +404,7 @@ public class HomePage extends javax.swing.JFrame {
             HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                 .addContainerGap())
         );
         HomePanelLayout.setVerticalGroup(
@@ -405,6 +413,39 @@ public class HomePage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout ReaderAddPanelLayout = new javax.swing.GroupLayout(ReaderAddPanel);
+        ReaderAddPanel.setLayout(ReaderAddPanelLayout);
+        ReaderAddPanelLayout.setHorizontalGroup(
+            ReaderAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 647, Short.MAX_VALUE)
+        );
+        ReaderAddPanelLayout.setVerticalGroup(
+            ReaderAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 348, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ReaderUpdatePanelLayout = new javax.swing.GroupLayout(ReaderUpdatePanel);
+        ReaderUpdatePanel.setLayout(ReaderUpdatePanelLayout);
+        ReaderUpdatePanelLayout.setHorizontalGroup(
+            ReaderUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 647, Short.MAX_VALUE)
+        );
+        ReaderUpdatePanelLayout.setVerticalGroup(
+            ReaderUpdatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 348, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ReaderRemovePanelLayout = new javax.swing.GroupLayout(ReaderRemovePanel);
+        ReaderRemovePanel.setLayout(ReaderRemovePanelLayout);
+        ReaderRemovePanelLayout.setHorizontalGroup(
+            ReaderRemovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 647, Short.MAX_VALUE)
+        );
+        ReaderRemovePanelLayout.setVerticalGroup(
+            ReaderRemovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 348, Short.MAX_VALUE)
         );
 
         Pages.setText("Pages");
@@ -452,12 +493,27 @@ public class HomePage extends javax.swing.JFrame {
         Reader.setText("Reader");
 
         Add_Reader.setText("Add");
+        Add_Reader.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Add_ReaderActionPerformed(evt);
+            }
+        });
         Reader.add(Add_Reader);
 
         Update_Reader.setText("Update");
+        Update_Reader.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Update_ReaderActionPerformed(evt);
+            }
+        });
         Reader.add(Update_Reader);
 
         Remove_Reader.setText("Remove");
+        Remove_Reader.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Remove_ReaderActionPerformed(evt);
+            }
+        });
         Reader.add(Remove_Reader);
 
         Options.add(Reader);
@@ -506,6 +562,12 @@ public class HomePage extends javax.swing.JFrame {
                 .addComponent(BookRemovePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(HomePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReaderAddPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReaderUpdatePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReaderRemovePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,6 +578,12 @@ public class HomePage extends javax.swing.JFrame {
                 .addComponent(BookRemovePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(HomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReaderAddPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReaderUpdatePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReaderRemovePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -526,6 +594,9 @@ public class HomePage extends javax.swing.JFrame {
         BookAddPanel.setVisible(false);
         BookUpdatePanel.setVisible(false);
         HomePanel.setVisible(false);
+        ReaderAddPanel.setVisible(false);
+        ReaderUpdatePanel.setVisible(false);
+        ReaderRemovePanel.setVisible(false);
         
         
     }//GEN-LAST:event_Remove_BookActionPerformed
@@ -541,6 +612,9 @@ public class HomePage extends javax.swing.JFrame {
         BookUpdatePanel.setVisible(false);
         BookRemovePanel.setVisible(false);
         HomePanel.setVisible(false);
+        ReaderAddPanel.setVisible(false);
+        ReaderUpdatePanel.setVisible(false);
+        ReaderRemovePanel.setVisible(false);
         
     }//GEN-LAST:event_Add_BookActionPerformed
 
@@ -561,6 +635,9 @@ public class HomePage extends javax.swing.JFrame {
         BookAddPanel.setVisible(false);
         BookRemovePanel.setVisible(false);
         HomePanel.setVisible(false);
+        ReaderAddPanel.setVisible(false);
+        ReaderUpdatePanel.setVisible(false);
+        ReaderRemovePanel.setVisible(false);
     }//GEN-LAST:event_Update_BookActionPerformed
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
@@ -568,6 +645,9 @@ public class HomePage extends javax.swing.JFrame {
         BookUpdatePanel.setVisible(false);   
         BookAddPanel.setVisible(false);
         BookRemovePanel.setVisible(false);
+        ReaderAddPanel.setVisible(false);
+        ReaderUpdatePanel.setVisible(false);
+        ReaderRemovePanel.setVisible(false);
     }//GEN-LAST:event_HomeActionPerformed
 
     private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
@@ -616,7 +696,7 @@ public class HomePage extends javax.swing.JFrame {
             else if(Integer.parseInt(bookID)<1)
             {
                 JOptionPane.showMessageDialog (null, 
-                    "Boo ID must be highere than 0 !", "Warning", JOptionPane.WARNING_MESSAGE);
+                    "Book ID must be highere than 0 !", "Warning", JOptionPane.WARNING_MESSAGE);
             }
             else 
             {
@@ -652,16 +732,12 @@ public class HomePage extends javax.swing.JFrame {
                 }
             }
             
-            
-            
-            
-            
-            
-            
-            
+    
             
     }//GEN-LAST:event_AddBookActionPerformed
 
+    
+    // <editor-fold defaultstate="collapsed" desc="Update Button">  
     private void UpdateBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBookActionPerformed
         if(CheckBookID.isSelected()==true)
         {
@@ -716,7 +792,21 @@ public class HomePage extends javax.swing.JFrame {
                                 Library.Book.UpdateBookType(Integer.parseInt(updatedBookID), newBookType);
                             }
                             JOptionPane.showMessageDialog (null,"   Book has been updated !", "", JOptionPane.INFORMATION_MESSAGE);
-                            view.jTable1.updateUI();
+                            
+                            /*DefaultTableModel model = (DefaultTableModel) view.jTable1.getModel();
+
+                            int row=2;
+                            for (int i = model.getRowCount() - 1; i >= 0; --i) {
+                                for (int j = model.getColumnCount() - 1; j >= 0; --j) {
+                                    if (model.getValueAt(i, j).equals(newBookID))
+                                    {
+                                        row=i;
+                                    }
+                                }
+                            }
+                            
+                            view.jTable1.setValueAt(newBookID, 16, 1);*/
+                            
                          }
                          else
                          {
@@ -761,15 +851,7 @@ public class HomePage extends javax.swing.JFrame {
                                 }
                                 
                          }
-                            
-                            
-                                
-                            
-                        
-                                
-                            
-                            
-                 
+                   
                     }
                     //DO the staff
                     
@@ -789,7 +871,10 @@ public class HomePage extends javax.swing.JFrame {
                     , "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_UpdateBookActionPerformed
-
+// </editor-fold>  
+    
+    
+    
     private void CheckBookIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBookIDActionPerformed
         
         int checkBookID;
@@ -946,6 +1031,40 @@ public class HomePage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DeleteBookActionPerformed
 
+    private void Add_ReaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_ReaderActionPerformed
+        
+        ReaderAddPanel.setVisible(true);
+        HomePanel.setVisible(false);
+        BookUpdatePanel.setVisible(false);   
+        BookAddPanel.setVisible(false);
+        BookRemovePanel.setVisible(false);
+        ReaderUpdatePanel.setVisible(false);
+        ReaderRemovePanel.setVisible(false);
+    }//GEN-LAST:event_Add_ReaderActionPerformed
+
+    private void Update_ReaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_ReaderActionPerformed
+        
+        ReaderUpdatePanel.setVisible(true);
+        ReaderAddPanel.setVisible(false);
+        HomePanel.setVisible(false);
+        BookUpdatePanel.setVisible(false);   
+        BookAddPanel.setVisible(false);
+        BookRemovePanel.setVisible(false);
+        ReaderRemovePanel.setVisible(false);
+    }//GEN-LAST:event_Update_ReaderActionPerformed
+
+    private void Remove_ReaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Remove_ReaderActionPerformed
+        
+        ReaderRemovePanel.setVisible(true);
+        ReaderUpdatePanel.setVisible(false);
+        ReaderAddPanel.setVisible(false);
+        HomePanel.setVisible(false);
+        BookUpdatePanel.setVisible(false);   
+        BookAddPanel.setVisible(false);
+        BookRemovePanel.setVisible(false);
+        
+    }//GEN-LAST:event_Remove_ReaderActionPerformed
+
     
     
     
@@ -1020,6 +1139,9 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JMenu Pages;
     private javax.swing.JMenuItem Quit;
     private javax.swing.JMenu Reader;
+    private javax.swing.JPanel ReaderAddPanel;
+    private javax.swing.JPanel ReaderRemovePanel;
+    private javax.swing.JPanel ReaderUpdatePanel;
     private javax.swing.JMenuItem Refresh;
     private javax.swing.JMenuItem Remove_Book;
     private javax.swing.JMenuItem Remove_Reader;
