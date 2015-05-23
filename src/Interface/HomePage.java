@@ -685,10 +685,13 @@ public class HomePage extends javax.swing.JFrame {
                         try
                         {
                             int newBookIDCheck=Integer.parseInt(NewBookID.getText());
+                            
                         }
                         catch(Exception e)
                         {
                             check=false;
+                            System.out.println(check);
+                          
                         }
                         
                         
@@ -717,15 +720,15 @@ public class HomePage extends javax.swing.JFrame {
                          }
                          else
                          {
-                            
-                                if(Integer.parseInt(newBookID)<1)
+                                if(check==false)
                                 {
-                                    JOptionPane.showMessageDialog (null,"The new book ID must be highere than 0 \n ! The book has not been updated !", "Error", JOptionPane.WARNING_MESSAGE);
+                                    JOptionPane.showMessageDialog (null,"   Invalid book ID !\n  The book has not been updated !", "Error", JOptionPane.WARNING_MESSAGE);
                                 }
-                                else if(check==false)
+                                        else if(Integer.parseInt(newBookID)<1)
                                 {
-                                    JOptionPane.showMessageDialog (null,"Invalid book ID !\n  The book has not been updated !", "Error", JOptionPane.WARNING_MESSAGE);
+                                    JOptionPane.showMessageDialog (null,"The new book ID must be highere than 0 !\n The book has not been updated !", "Error", JOptionPane.WARNING_MESSAGE);
                                 }
+                                
                                 else
                                 {
                                     Library.Book book=Library.Book.ExtractBookDatas(Integer.parseInt(newBookID));
@@ -897,13 +900,18 @@ public class HomePage extends javax.swing.JFrame {
                     DeletedBookID.setEnabled(false);
                   
             }
-            else 
+            else if(CheckBookID1.isSelected()==true)
             {
                 DeleteBook.setEnabled(false);
                 DeletedBookID.setEnabled(true);
                 JOptionPane.showMessageDialog (null, "Book ID must be higher than 0 ! "
                     , "Error", JOptionPane.WARNING_MESSAGE);
                 
+            }
+            else
+            {
+                DeleteBook.setEnabled(false);
+                DeletedBookID.setEnabled(true);
             }
         }
         else
